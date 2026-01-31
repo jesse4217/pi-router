@@ -1,3 +1,5 @@
+[![Build Your Travel Router](assets/img_01.png)](https://youtu.be/VhU598k_FMg)
+
 # Raspberry Pi Travel Router with OpenWRT and OpenVPN
 
 A complete guide to building a portable, secure travel router using Raspberry Pi 5, OpenWRT, and OpenVPN.
@@ -33,15 +35,15 @@ This project creates a personal travel router that:
 
 Follow these steps in order:
 
-1. [Flashing OpenWRT](./01-flashing-openwrt.md) - Download and flash the OS
-2. [Initial SSH Setup](./02-initial-ssh-setup.md) - First connection and password configuration
-3. [Network Configuration](./03-network-configuration.md) - IP address and interface setup
-4. [Connecting to Wi-Fi](./04-connecting-to-wifi.md) - Join an existing network
-5. [USB Wi-Fi Adapter Setup](./05-usb-wifi-adapter-setup.md) - Install drivers and packages
-6. [Access Point Configuration](./06-access-point-configuration.md) - Create your private network
-7. [Auto-Start Script](./07-auto-start-script.md) - Automatic startup on boot
-8. [AWS OpenVPN Server Setup](./08-aws-openvpn-setup.md) - Create VPN server on AWS
-9. [OpenVPN Client Configuration](./09-openvpn-client-config.md) - Connect router to VPN
+1. [Flashing OpenWRT](./docs/01-flashing-openwrt.md) - Download and flash the OS
+2. [Initial SSH Setup](./docs/02-initial-ssh-setup.md) - First connection and password configuration
+3. [Network Configuration](./docs/03-network-configuration.md) - IP address and interface setup
+4. [Connecting to Wi-Fi](./docs/04-connecting-to-wifi.md) - Join an existing network
+5. [USB Wi-Fi Adapter Setup](./docs/05-usb-wifi-adapter-setup.md) - Install drivers and packages
+6. [Access Point Configuration](./docs/06-access-point-configuration.md) - Create your private network
+7. [Auto-Start Script](./docs/07-auto-start-script.md) - Automatic startup on boot
+8. [AWS OpenVPN Server Setup](./docs/08-aws-openvpn-setup.md) - Create VPN server on AWS
+9. [OpenVPN Client Configuration](./docs/09-openvpn-client-config.md) - Connect router to VPN
 
 ## Network Architecture
 
