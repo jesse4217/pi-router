@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+*.whl
+pip-log.txt
+pip-delete-this-directory.txt
+.Python
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+MANIFEST
+sdist/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Ansible
+*.retry
+inventory/*.ini
+!inventory/*.example.ini
+group_vars/all/vault.yml
+host_vars/*/vault.yml
+
+# Secrets / credentials
+*.pem
+*.key
+*.crt
+*.p12
+secrets.yml
+vault_password
+.vault_pass
