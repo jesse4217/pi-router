@@ -341,16 +341,10 @@ You've successfully built a portable, secure travel router that:
 
 Stay safe on public networks!
 
+## Next Step
+
+Want to automate this entire setup for next time?
+
+→ [Step 10: Automated Setup with Ansible](./10-ansible-automation.md)
+
 ---
-
-## Quick Reference Card
-
-| Task | Command/URL |
-|------|-------------|
-| Router SSH | `ssh root@10.123.1.1` |
-| Router Web UI | `http://10.123.1.1` |
-| OpenVPN Admin | `https://EC2_IP:943/admin` |
-| Check VPN Status | `ifconfig tun0` |
-| View Logs | `logread \| grep openvpn` |
-| Restart VPN | `/etc/init.d/openvpn restart` |
-| Check External IP | `curl ifconfig.me` |

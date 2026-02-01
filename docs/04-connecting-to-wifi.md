@@ -136,34 +136,6 @@ Internet ←──→ Wi-Fi Router ←──→ Raspberry Pi ←──→ Your L
 | Web interface won't load | Clear browser cache; try different browser |
 | Changes won't apply | Click "Unsaved Changes" and then "Save & Apply" |
 
-### Verify Wi-Fi Connection via CLI
-
-```bash
-# Check wireless status
-iwinfo
-
-# Check network interfaces
-ifconfig wlan0
-
-# Check routing table
-route -n
-```
-
-### Common Firewall Issues
-
-If you still can't access the internet after connecting:
-
-```bash
-# Check firewall rules
-iptables -L -n
-
-# Temporarily disable firewall (for testing only!)
-/etc/init.d/firewall stop
-
-# Re-enable firewall
-/etc/init.d/firewall start
-```
-
 ## Next Step
 
 → [Step 5: USB Wi-Fi Adapter Setup](./05-usb-wifi-adapter-setup.md)
