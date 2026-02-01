@@ -1,6 +1,6 @@
-[![Build Your Travel Router](assets/img_01.png)](https://youtu.be/VhU598k_FMg)
+# Raspberry Pi 5 Travel Router
 
-# Raspberry Pi Travel Router with OpenWRT and OpenVPN
+[![Build Your Travel Router](assets/img_01.png)](https://youtu.be/VhU598k_FMg)
 
 A complete guide to building a portable, secure travel router using Raspberry Pi 5, OpenWRT, and OpenVPN.
 
@@ -11,6 +11,36 @@ This project creates a personal travel router that:
 - Creates a private, secure Wi-Fi access point for your devices
 - Routes all traffic through a VPN for privacy and security
 - Runs on a mobile battery for portability
+
+## Quick Start (Automated)
+
+If you have Ansible installed, you can skip most of the manual steps:
+
+1. Flash the SD card and set a password (Steps 1-2)
+2. Edit `ansible/group_vars/openwrt.yml` with your WiFi and VPN credentials
+3. Run `ansible-playbook -i ansible/inventories/hosts ansible/site.yml`
+
+See [Step 10: Automated Setup with Ansible](./docs/10-ansible-automation.md) for the full walkthrough.
+
+## Guide Structure
+
+### Manual Setup
+
+Follow these steps in order:
+
+1. [Flashing OpenWRT](./docs/01-flashing-openwrt.md) - Download and flash the OS
+2. [Initial SSH Setup](./docs/02-initial-ssh-setup.md) - First connection and password configuration
+3. [Network Configuration](./docs/03-network-configuration.md) - IP address and interface setup
+4. [Connecting to Wi-Fi](./docs/04-connecting-to-wifi.md) - Join an existing network
+5. [USB Wi-Fi Adapter Setup](./docs/05-usb-wifi-adapter-setup.md) - Install drivers and packages
+6. [Access Point Configuration](./docs/06-access-point-configuration.md) - Create your private network
+7. [Auto-Start Script](./docs/07-auto-start-script.md) - Automatic startup on boot
+8. [AWS OpenVPN Server Setup](./docs/08-aws-openvpn-setup.md) - Create VPN server on AWS
+9. [OpenVPN Client Configuration](./docs/09-openvpn-client-config.md) - Connect router to VPN
+
+### Automation
+
+10. [Automated Setup with Ansible](./docs/10-ansible-automation.md) - Run steps 3-7 and 9 with a single command
 
 ## Hardware Requirements
 
@@ -30,53 +60,4 @@ This project creates a personal travel router that:
 - Balena Etcher (Image flashing tool)
 - Terminal/SSH Client
 - AWS Account (for VPN server)
-
-## Guide Structure
-
-Follow these steps in order:
-
-1. [Flashing OpenWRT](./docs/01-flashing-openwrt.md) - Download and flash the OS
-2. [Initial SSH Setup](./docs/02-initial-ssh-setup.md) - First connection and password configuration
-3. [Network Configuration](./docs/03-network-configuration.md) - IP address and interface setup
-4. [Connecting to Wi-Fi](./docs/04-connecting-to-wifi.md) - Join an existing network
-5. [USB Wi-Fi Adapter Setup](./docs/05-usb-wifi-adapter-setup.md) - Install drivers and packages
-6. [Access Point Configuration](./docs/06-access-point-configuration.md) - Create your private network
-7. [Auto-Start Script](./docs/07-auto-start-script.md) - Automatic startup on boot
-8. [AWS OpenVPN Server Setup](./docs/08-aws-openvpn-setup.md) - Create VPN server on AWS
-9. [OpenVPN Client Configuration](./docs/09-openvpn-client-config.md) - Connect router to VPN
-
-## Network Architecture
-
-```
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│  Public Wi-Fi   │────▶│  Raspberry Pi    │────▶│  Your Devices   │
-│  (Untrusted)    │     │  Travel Router   │     │  (Secure)       │
-└─────────────────┘     └────────┬─────────┘     └─────────────────┘
-                                 │
-                                 │ VPN Tunnel
-                                 ▼
-                        ┌─────────────────┐
-                        │  AWS OpenVPN    │
-                        │  Server         │
-                        └─────────────────┘
-```
-
-## Quick Reference
-
-- Default OpenWRT IP: `192.168.1.1`
-- Custom IP (this guide): `10.123.1.1`
-- OpenWRT Web Interface: `http://10.123.1.1`
-- Default SSH User: `root`
-
-## Troubleshooting
-
-See individual step files for step-specific troubleshooting. For general issues:
-
-- **Cannot SSH**: Check Ethernet connection and IP address
-- **No Internet**: Verify Wi-Fi credentials and firewall settings
-- **USB Adapter not detected**: Try different USB port or check driver installation
-- **VPN not connecting**: Verify credentials and server configuration
-
-## License
-
-This guide is provided as-is for educational purposes.
+- Ansible (optional, for automated setup)

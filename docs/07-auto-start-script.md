@@ -109,86 +109,6 @@ After reboot (wait ~60 seconds):
 1. Look for your SSID (e.g., "RaspiRouter") on your phone/device
 2. Connect to verify it's working
 
-## Alternative Script (More Robust)
-
-For more complex setups, use this enhanced version:
-
-```bash
-#!/bin/sh /etc/rc.common
-
-START=99
-STOP=10
-
-start() {
-    logger -t wifi-adapter "Starting WiFi adapter initialization"
-    
-    # Wait for system to stabilize
-    sleep 5
-    
-    # Load driver (adjust driver name as needed)
-    modprobe rtl8xxxu 2>/dev/null
-    
-    # Wait for driver to load
-    sleep 2
-    
-    # Reload wireless configuration
-    wifi
-    
-    logger -t wifi-adapter "WiFi adapter initialization complete"
-}
-
-stop() {
-    logger -t wifi-adapter "Stopping WiFi adapter"
-    wifi down
-}
-
-restart() {
-    stop
-    sleep 2
-    start
-}
-```
-
-### View Logs from the Script
-
-```bash
-logread | grep wifi-adapter
-```
-
-## Init Script Priority Reference
-
-| Priority | Description |
-|----------|-------------|
-| 10-19 | Early boot (filesystems, base network) |
-| 20-49 | Core services |
-| 50-79 | Network services |
-| 80-89 | Application services |
-| 90-99 | Late boot (user scripts) |
-
-Using `START=99` ensures our script runs after all other services are ready.
-
-## Managing the Init Script
-
-```bash
-# Start the service
-/etc/init.d/wifi-adapter start
-
-# Stop the service
-/etc/init.d/wifi-adapter stop
-
-# Restart the service
-/etc/init.d/wifi-adapter restart
-
-# Enable at boot
-/etc/init.d/wifi-adapter enable
-
-# Disable at boot
-/etc/init.d/wifi-adapter disable
-
-# Check status
-/etc/init.d/wifi-adapter enabled && echo "Enabled" || echo "Disabled"
-```
-
 ## Troubleshooting
 
 | Issue | Solution |
@@ -197,21 +117,6 @@ Using `START=99` ensures our script runs after all other services are ready.
 | Permission denied | Run `chmod +x /etc/init.d/wifi-adapter` |
 | SSID doesn't appear after boot | Increase sleep delay; check logs |
 | Driver not loading | Add explicit `modprobe` command |
-
-### Debug Boot Process
-
-Watch the boot process in real-time (connect via serial or after boot):
-
-```bash
-logread -f
-```
-
-### Check if Script Ran
-
-```bash
-ps | grep wifi
-logread | grep -i wifi
-```
 
 ### Common Issues
 

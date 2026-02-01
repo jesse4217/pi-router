@@ -1,0 +1,54 @@
+---
+# Step 9: OpenVPN client configuration
+# - Install OpenVPN packages
+# - Upload .ovpn profile from local machine
+# - Create auth credentials file
+# - Enable auto-start
+#
+# Prerequisites: you must have already completed Step 8 (AWS OpenVPN server)
+# and downloaded the .ovpn profile to your local machine.
+
+- name: Update package lists
+  raw: opkg update
+
+- name: Install OpenVPN packages
+  raw: opkg install {{ openvpn_packages | join(' ') }}
+
+- name: Create openvpn config directory
+  raw: mkdir -p /etc/openvpn
+
+- name: Upload .ovpn profile
+  copy:
+    src: "{{ openvpn_profile_local }}"
+    dest: "/etc/openvpn/{{ openvpn_instance_name }}.ovpn"
+    mode: "0600"
+
+- name: Patch profile to use auth file
+  raw: >
+    sed -i 's|^auth-user-pass.*|auth-user-pass /etc/openvpn/auth.txt|'
+    /etc/openvpn/{{ openvpn_instance_name }}.ovpn
+
+- name: Create auth credentials file
+  raw: |
+    cat > /etc/openvpn/auth.txt << EOF
+    {{ openvpn_user }}
+    {{ openvpn_password }}
+    EOF
+
+- name: Lock down auth file permissions
+  raw: chmod 600 /etc/openvpn/auth.txt
+
+- name: Enable OpenVPN on boot
+  raw: /etc/init.d/openvpn enable
+
+- name: Start OpenVPN
+  raw: /etc/init.d/openvpn start
+
+- name: Wait for tunnel to come up
+  raw: sleep 5
+
+- name: Verify VPN tunnel interface exists
+  raw: ifconfig tun0
+  register: tun_result
+  failed_when: tun_result.rc != 0
+  changed_when: false

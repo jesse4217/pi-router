@@ -95,7 +95,7 @@ Type `yes` when prompted and enter your password.
 Once connected, verify the new IP address:
 
 ```bash
-ifconfig br-lan
+ifconfig
 ```
 
 You should see the new IP address `10.123.1.1` in the output.
@@ -107,22 +107,6 @@ You should see the new IP address `10.123.1.1` in the output.
 | New LAN IP | `10.123.1.1` |
 | WWAN Protocol | DHCP |
 | DNS Servers | 1.1.1.1, 8.8.8.8 |
-
-## UCI Commands Reference
-
-```bash
-# View a specific setting
-uci get network.lan.ipaddr
-
-# View all network settings
-uci show network
-
-# Revert uncommitted changes
-uci revert network
-
-# Export configuration
-uci export network
-```
 
 ## Testing Internet Connectivity
 

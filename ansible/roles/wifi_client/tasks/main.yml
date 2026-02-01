@@ -1,0 +1,36 @@
+---
+# Step 4: Connect to upstream WiFi
+# - Configure the onboard radio (radio0) as a client to an existing network
+
+- name: Set upstream WiFi SSID
+  raw: uci set wireless.@wifi-iface[0].ssid='{{ upstream_wifi_ssid }}'
+
+- name: Set upstream WiFi encryption
+  raw: uci set wireless.@wifi-iface[0].encryption='psk2'
+
+- name: Set upstream WiFi password
+  raw: uci set wireless.@wifi-iface[0].key='{{ upstream_wifi_password }}'
+
+- name: Assign upstream WiFi to WWAN network
+  raw: uci set wireless.@wifi-iface[0].network='wwan'
+
+- name: Set firewall WAN zone input to ACCEPT
+  raw: uci set firewall.@zone[1].input='ACCEPT'
+
+- name: Commit wireless changes
+  raw: uci commit wireless
+
+- name: Commit firewall changes
+  raw: uci commit firewall
+
+- name: Reload wireless
+  raw: wifi
+
+- name: Restart firewall
+  raw: /etc/init.d/firewall restart
+
+- name: Verify internet connectivity
+  raw: ping -c 2 -W 5 1.1.1.1
+  register: ping_result
+  failed_when: ping_result.rc != 0
+  changed_when: false

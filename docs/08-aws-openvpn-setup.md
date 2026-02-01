@@ -11,13 +11,6 @@ In this step, we'll set up an OpenVPN server on AWS EC2. This server will encryp
 - Email address for account setup
 - Completed Steps 1-7
 
-## Why AWS?
-
-- **Free tier**: T2.micro instance is free for 12 months
-- **Global regions**: Choose server location worldwide
-- **Reliable**: 99.99% uptime SLA
-- **Scalable**: Upgrade if needed
-
 ## Instructions
 
 ### 8.1 Create AWS Account (If Needed)
@@ -147,26 +140,6 @@ From the instance details, note:
 - **Public IPv4 address**: e.g., `52.xx.xx.xx`
 - **Public IPv4 DNS**: e.g., `ec2-52-xx-xx-xx.region.compute.amazonaws.com`
 
-## Security Group Ports Reference
-
-| Port | Protocol | Purpose |
-|------|----------|---------|
-| 22 | TCP | SSH access |
-| 443 | TCP | Admin web interface |
-| 943 | TCP | Client web interface |
-| 1194 | UDP | OpenVPN tunnel |
-
-## Estimated AWS Costs
-
-Using free tier (first 12 months):
-- EC2 t2.micro: **Free** (750 hours/month)
-- Data transfer: First 100GB/month **Free**
-- Storage: 30GB **Free**
-
-After free tier:
-- t2.micro: ~$8.50/month (on-demand)
-- Consider Reserved Instances for savings
-
 ## Troubleshooting
 
 | Issue | Solution |
@@ -175,11 +148,6 @@ After free tier:
 | Cannot see OpenVPN AMI | Search in AWS Marketplace |
 | Key pair download failed | Delete and create new key pair |
 | Status checks failing | Wait longer; check instance logs |
-
-### View Instance Logs
-
-1. Select your instance
-2. Click **Actions** → **Monitor and troubleshoot** → **Get system log**
 
 ## Next Step
 

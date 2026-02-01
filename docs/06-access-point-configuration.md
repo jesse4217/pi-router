@@ -214,22 +214,6 @@ wifi
 | Connected but no internet | Check that interface is bridged to `lan` network |
 | Slow speeds | Try different Wi-Fi channel; check for interference |
 
-### Debug Commands
-
-```bash
-# Check wireless status
-iwinfo
-
-# View detailed wireless config
-uci show wireless
-
-# Check bridge configuration
-brctl show
-
-# Monitor wireless events
-logread | grep -i wireless
-```
-
 ### Reset Wireless Configuration
 
 If things go wrong:

@@ -1,0 +1,22 @@
+---
+# Step 5: USB WiFi adapter setup
+# - Install driver packages for the USB WiFi adapter
+
+- name: Update package lists
+  raw: opkg update
+
+- name: Install WiFi adapter packages
+  raw: opkg install {{ wifi_driver_packages | join(' ') }}
+
+- name: Load WiFi driver module
+  raw: modprobe {{ wifi_driver_module }}
+  failed_when: false
+
+- name: Verify USB adapter is detected
+  raw: lsusb
+  register: lsusb_output
+  changed_when: false
+
+- name: Show detected USB devices
+  debug:
+    var: lsusb_output.stdout_lines
