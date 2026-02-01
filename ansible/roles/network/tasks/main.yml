@@ -1,0 +1,22 @@
+---
+# Step 3: Network Configuration
+# - Change LAN IP from 192.168.1.1 to a custom address
+# - Create WWAN interface for upstream WiFi connection
+
+- name: Set LAN IP address
+  raw: uci set network.lan.ipaddr='{{ lan_ipaddr }}'
+
+- name: Create WWAN interface
+  raw: uci set network.wwan=interface
+
+- name: Set WWAN protocol to DHCP
+  raw: uci set network.wwan.proto='dhcp'
+
+- name: Set DNS servers
+  raw: uci set network.wwan.dns='{{ dns_servers }}'
+
+- name: Commit network changes
+  raw: uci commit network
+
+- name: Restart network service
+  raw: /etc/init.d/network restart

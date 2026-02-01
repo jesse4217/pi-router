@@ -1,0 +1,26 @@
+---
+# Master playbook — configures a Raspberry Pi OpenWRT travel router.
+#
+# Steps 1-2 (flash SD card, first SSH + password) are physical tasks.
+# This playbook automates steps 3-7 and 9.
+#
+# Usage:
+#   # Full setup (all roles)
+#   ansible-playbook -i inventories/hosts site.yml
+#
+#   # Only network + wifi
+#   ansible-playbook -i inventories/hosts site.yml --tags network,wifi
+#
+#   # Only VPN
+#   ansible-playbook -i inventories/hosts site.yml --tags vpn
+
+- name: Configure OpenWRT travel router
+  hosts: openwrt
+  gather_facts: false          # OpenWRT has no python — skip fact gathering
+
+  roles:
+    - { role: network,      tags: network }        # Step 3
+    - { role: wifi_client,  tags: wifi }            # Step 4
+    - { role: usb_wifi,     tags: wifi }            # Step 5
+    - { role: access_point, tags: wifi }            # Step 6 + 7
+    - { role: openvpn,      tags: vpn }             # Step 9

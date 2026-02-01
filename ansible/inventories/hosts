@@ -1,0 +1,6 @@
+[openwrt]
+router ansible_host=10.123.1.1
+
+[openwrt:vars]
+ansible_user=root
+ansible_shell_type=sh

@@ -1,0 +1,53 @@
+---
+# Step 6 + 7: Access point configuration + auto-start script
+# - Enable the USB adapter as an AP with custom SSID/password
+# - Create an init script so it survives reboots
+
+# --- Step 6: Access Point ---
+
+- name: Enable radio1 (USB adapter)
+  raw: uci set wireless.radio1.disabled='0'
+
+- name: Set AP SSID
+  raw: uci set wireless.default_radio1.ssid='{{ ap_ssid }}'
+
+- name: Set AP encryption
+  raw: uci set wireless.default_radio1.encryption='{{ ap_encryption }}'
+
+- name: Set AP password
+  raw: uci set wireless.default_radio1.key='{{ ap_password }}'
+
+- name: Assign AP to LAN network
+  raw: uci set wireless.default_radio1.network='lan'
+
+- name: Commit wireless changes
+  raw: uci commit wireless
+
+- name: Reload wireless
+  raw: wifi
+
+# --- Step 7: Auto-start script ---
+
+- name: Deploy wifi-adapter init script
+  raw: |
+    cat > /etc/init.d/wifi-adapter << 'SCRIPT'
+    #!/bin/sh /etc/rc.common
+
+    START=99
+    STOP=10
+
+    start() {
+        sleep 5
+        wifi
+    }
+
+    stop() {
+        wifi down
+    }
+    SCRIPT
+
+- name: Make init script executable
+  raw: chmod +x /etc/init.d/wifi-adapter
+
+- name: Enable init script on boot
+  raw: /etc/init.d/wifi-adapter enable

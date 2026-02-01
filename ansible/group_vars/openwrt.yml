@@ -1,0 +1,33 @@
+# --- Network (Step 3) ---
+lan_ipaddr: "10.123.1.1"
+dns_servers: "1.1.1.1 8.8.8.8"
+
+# --- WiFi Client (Step 4) ---
+# The upstream WiFi network the router connects to for internet
+upstream_wifi_ssid: "HotelWiFi"
+upstream_wifi_password: "changeme"
+
+# --- USB WiFi Driver (Step 5) ---
+wifi_driver_packages:
+  - usbutils
+  - usb-modeswitch
+  - kmod-rtl8xxxu
+  - rtl8192cu-firmware
+
+wifi_driver_module: "rtl8xxxu"
+
+# --- Access Point (Step 6) ---
+ap_ssid: "RaspiRouter"
+ap_password: "YourSecurePassword123"
+ap_encryption: "psk2"
+
+# --- OpenVPN Client (Step 9) ---
+openvpn_packages:
+  - openvpn-openssl
+  - luci-app-openvpn
+
+openvpn_instance_name: "router-manager"
+openvpn_user: "openvpn"
+openvpn_password: "changeme"
+# Path to the .ovpn file on your LOCAL machine (downloaded from AWS)
+openvpn_profile_local: "~/Downloads/client.ovpn"
